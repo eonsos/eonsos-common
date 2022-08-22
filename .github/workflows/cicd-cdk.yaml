@@ -53,7 +53,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: ./.github/actions/cdk-deploy
+      - uses: eonsos/eonsos-common/.github/actions/cdk-deploy@main
         with:
           account_id: ${{ inputs.dev_accountid }}
           cdk_stack: ${{ inputs.cdk_appname }}-dev
