@@ -10,7 +10,7 @@ on:
       working_dir:
         required: false
         type: string
-        default: ""
+        default: "."
 defaults:
   run:
     working-directory: ${{ inputs.working_dir }}
