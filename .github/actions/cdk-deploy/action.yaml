@@ -2,6 +2,7 @@ name: CDK Deploy
 description: Deploys CDK to an AWS account
 inputs:
   account_id:
+    type: string
     description: 'AWS Account Id'
     required: true
   cdk_stack:
@@ -29,7 +30,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-region: us-east-1
-        role-to-assume: arn:aws:iam::${{ inputs.dev_accountid }}:role/github-pipeline
+        role-to-assume: arn:aws:iam::${{ inputs.account_id }}:role/github-pipeline
     - name: Deploy CDK Stack
       run: cdk deploy ${{ inputs.cdk_stack }} --require-approval never
       shell: bash
