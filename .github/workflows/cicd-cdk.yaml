@@ -7,18 +7,21 @@ on:
       prod_accountid:
         required: true
         type: string
+      cdk_appname:
+        required: true
+        type: string
       working_dir:
         required: false
         type: string
-        default: "website"
-defaults:
-  run:
-    working-directory: ${{ inputs.working_dir }}
+        default: "."
 env:
   ARTIFACT_ID: eon_artifact_${{github.run_id}}
 jobs:
   Build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_dir }}      
     steps:
       - uses: actions/checkout@v3
       - name: npm install
@@ -50,9 +53,9 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: eonsos/eonsos-common/actions/cdk-deploy@main
+      - uses: ./.github/actions/cdk-deploy
         with:
-          account_id: ${{ github.event.inputs.dev_accountid }}
-          cdk_stack: eonsos-corp-website-dev
+          account_id: ${{ inputs.dev_accountid }}
+          cdk_stack: ${{ inputs.cdk_appname }}-dev
           artifact_id: $ARTIFACT_ID-dev
-          artifact_download_path: website
+          artifact_download_path: ${{ inputs.working_dir }}

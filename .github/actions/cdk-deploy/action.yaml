@@ -24,6 +24,7 @@ runs:
         key: ${{ inputs.artifact_id }}
     - name: Setup CDK Binary
       run: npm install -g aws-cdk
+      shell: bash
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -31,3 +32,4 @@ runs:
         role-to-assume: arn:aws:iam::${{ inputs.dev_accountid }}:role/github-pipeline
     - name: Deploy CDK Stack
       run: cdk deploy ${{ inputs.cdk_stack }} --require-approval never
+      shell: bash
