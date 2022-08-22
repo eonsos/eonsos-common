@@ -1,0 +1,33 @@
+name: CDK Deploy
+description: Deploys CDK to an AWS account
+inputs:
+  account_id:
+    description: 'AWS Account Id'
+    required: true
+  cdk_stack:
+    description: 'Stack Name of the CDK app'
+    required: true
+  artifact_id:
+    description: 'Cache key of the pre-built artifacts'
+    required: true
+  artifact_download_path:
+    description: 'Path to download the artifacts'
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - name: Download Artifacts
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.artifact_download_path }}
+        key: ${{ inputs.artifact_id }}
+    - name: Setup CDK Binary
+      run: npm install -g aws-cdk
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: us-east-1
+        role-to-assume: arn:aws:iam::${{ inputs.dev_accountid }}:role/github-pipeline
+    - name: Deploy CDK Stack
+      run: cdk deploy ${{ inputs.cdk_stack }} --require-approval never

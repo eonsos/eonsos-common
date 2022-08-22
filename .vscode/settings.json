@@ -1,0 +1,13 @@
+{
+    "yaml.schemas": {
+        "file:/root/.vscode-server/data/User/globalStorage/amazonwebservices.aws-toolkit-vscode/sam.schema.json": [
+            "template.yaml"
+        ],
+        "file:///root/.vscode-server/data/User/globalStorage/amazonwebservices.aws-toolkit-vscode/sam.schema.json": [
+            "template.yaml",
+            "api/test-api3/test-api3/template.yaml",
+            "api/timesheet-api/template.yaml"
+        ],
+        "https://json.schemastore.org/github-action.json": "file:///projects/eonsos/eonsos-common/.github/actions/ci-cd.yaml"
+    }
+}

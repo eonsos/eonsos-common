@@ -1,0 +1,58 @@
+on:
+  workflow_call:
+    inputs:
+      dev_accountid:
+        required: true
+        type: string
+      prod_accountid:
+        required: true
+        type: string
+      working_dir:
+        required: false
+        type: string
+        default: ""
+defaults:
+  run:
+    working-directory: ${{ inputs.working_dir }}
+env:
+  ARTIFACT_ID: eon_artifact_${{github.run_id}}
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: npm install
+        run: npm install
+      # - name: generate unique artifact id
+      #   id: get-date
+      #   run: |
+      #     echo "::set-output name=date::$(/bin/date -u "+%Y%m%d%s")"
+      #   shell: bash
+      - name: dev build
+        run: ENV=development npm run build
+      - uses: actions/cache@v3
+        name: store dev artifacts
+        with:
+          path: website
+          key: $ARTIFACT_ID-dev
+      - name: prod build
+        run: npm run build
+      - uses: actions/cache@v3
+        name: store prod artifacts
+        with:
+          path: website
+          key: $ARTIFACT_ID-prod
+    # outputs:
+    #   cache-key: eon-website-${{ steps.get-date.outputs.date }}
+  DeployToDev:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/cdk-deploy
+        with:
+          account_id: ${{ inputs.dev_accountid }}
+          cdk_stack: eonsos-corp-website-dev
+          artifact_id: $ARTIFACT_ID-dev
+          artifact_download_path: website
