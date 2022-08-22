@@ -34,3 +34,4 @@ runs:
     - name: Deploy CDK Stack
       run: cdk deploy ${{ inputs.cdk_stack }} --require-approval never
       shell: bash
+      working-directory: ${{ inputs.artifact_download_path }}
