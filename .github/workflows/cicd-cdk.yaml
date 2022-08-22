@@ -7,13 +7,13 @@ on:
       prod_accountid:
         required: true
         type: string
-      # working_dir:
-      #   required: false
-      #   type: string
-      #   default: "."
-# defaults:
-#   run:
-#     working-directory: ${{ inputs.working_dir }}
+      working_dir:
+        required: false
+        type: string
+        default: "website"
+defaults:
+  run:
+    working-directory: ${{ inputs.working_dir }}
 env:
   ARTIFACT_ID: eon_artifact_${{github.run_id}}
 jobs:
