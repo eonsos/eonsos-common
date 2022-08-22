@@ -37,14 +37,14 @@ jobs:
         name: store dev artifacts
         with:
           path: website
-          key: ${{env.API_KEY}}"_dev
+          key: ${{env.ARTIFACT_ID}}_dev
       - name: prod build
         run: npm run build
       - uses: actions/cache@v3
         name: store prod artifacts
         with:
           path: website
-          key: ${{env.API_KEY}}"_prod
+          key: ${{env.ARTIFACT_ID}}"_prod
     # outputs:
     #   cache-key: eon-website-${{ steps.get-date.outputs.date }}
   DeployToDev:
@@ -57,5 +57,5 @@ jobs:
         with:
           account_id: ${{ inputs.dev_accountid }}
           cdk_stack: ${{ inputs.cdk_appname }}-dev
-          artifact_id: ${{env.API_KEY}}"_dev
+          artifact_id: ${{env.ARTIFACT_ID}}"_dev
           artifact_download_path: ${{ inputs.working_dir }}
