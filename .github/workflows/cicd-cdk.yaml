@@ -15,8 +15,7 @@ on:
         type: string
         default: "."
 env:
-  ARTIFACT_ID_DEV: eon_artifact_${{github.run_id}}_dev
-  ARTIFACT_ID_PROD: eon_artifact_${{github.run_id}}_prod
+  ARTIFACT_ID: eon_artifact_${{github.run_id}}
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -38,14 +37,14 @@ jobs:
         name: store dev artifacts
         with:
           path: website
-          key: $ARTIFACT_ID_DEV
+          key: ${{env.API_KEY}}"_dev
       - name: prod build
         run: npm run build
       - uses: actions/cache@v3
         name: store prod artifacts
         with:
           path: website
-          key: $ARTIFACT_ID_PROD
+          key: ${{env.API_KEY}}"_prod
     # outputs:
     #   cache-key: eon-website-${{ steps.get-date.outputs.date }}
   DeployToDev:
@@ -58,5 +57,5 @@ jobs:
         with:
           account_id: ${{ inputs.dev_accountid }}
           cdk_stack: ${{ inputs.cdk_appname }}-dev
-          artifact_id: $ARTIFACT_ID_DEV
+          artifact_id: ${{env.API_KEY}}"_dev
           artifact_download_path: ${{ inputs.working_dir }}
