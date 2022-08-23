@@ -65,6 +65,6 @@ jobs:
         with:
           account_id: ${{ inputs.dev_accountid }}
           cdk_stack: ${{ inputs.cdk_appname }}-dev
-          artifact_id: ${{env.ARTIFACT_ID}}_dev
+          artifact_id: ${{env.ARTIFACT_ID}}
           artifact_download_path: ${{ inputs.working_dir }}
           build_script: ${{ inputs.dev_build_script }}
