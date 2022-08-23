@@ -38,13 +38,13 @@ jobs:
         with:
           path: ${{ inputs.working_dir }}
           key: ${{env.ARTIFACT_ID}}_dev
-      - name: prod build
-        run: npm run prod-build
-      - uses: actions/cache@v3
-        name: store prod artifacts
-        with:
-          path: ${{ inputs.working_dir }}
-          key: ${{env.ARTIFACT_ID}}_prod
+      # - name: prod build
+      #   run: npm run prod-build
+      # - uses: actions/cache@v3
+      #   name: store prod artifacts
+      #   with:
+      #     path: ${{ inputs.working_dir }}
+      #     key: ${{env.ARTIFACT_ID}}_prod
     # outputs:
     #   cache-key: eon-website-${{ steps.get-date.outputs.date }}
   DeployToDev:
