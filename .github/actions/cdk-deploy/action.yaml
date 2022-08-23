@@ -5,6 +5,10 @@ inputs:
     type: string
     description: 'AWS Account from where CI/CD deployments are initiated from'
     required: true
+  target_account_id:
+    type: string
+    description: 'AWS Account into which the stack will be deployed'
+    required: true
   cdk_stack:
     description: 'Stack Name of the CDK app'
     required: true
@@ -40,3 +44,5 @@ runs:
       run: ${{ inputs.build_script }} && cdk deploy ${{ inputs.cdk_stack }} --require-approval never
       shell: bash
       working-directory: ${{ inputs.artifact_download_path }}
+      env:
+        ACCOUNT_ID: ${{ inputs.target_account_id }}
