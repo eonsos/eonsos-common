@@ -15,6 +15,11 @@ inputs:
     description: 'Path to download the artifacts'
     required: false
     default: ""
+  build_script:
+    description: any prebuild commands to run
+    required: false
+    type: string
+    default: echo "No build commands provided."
 runs:
   using: composite
   steps:
@@ -32,6 +37,6 @@ runs:
         aws-region: us-east-1
         role-to-assume: arn:aws:iam::${{ inputs.account_id }}:role/github-pipeline
     - name: Deploy CDK Stack
-      run: cdk deploy ${{ inputs.cdk_stack }} --require-approval never
+      run: ${{ inputs.build_script }} && cdk deploy ${{ inputs.cdk_stack }} --require-approval never
       shell: bash
       working-directory: ${{ inputs.artifact_download_path }}
