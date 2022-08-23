@@ -1,12 +1,12 @@
 on:
   workflow_call:
     inputs:
-      dev_accountid:
-        required: true
-        type: string
-      prod_accountid:
-        required: true
-        type: string
+      # dev_accountid:
+      #   required: true
+      #   type: string
+      # prod_accountid:
+      #   required: true
+      #   type: string
       cdk_appname:
         required: true
         type: string
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: eonsos/eonsos-common/.github/actions/cdk-deploy@main
         with:
-          account_id: ${{ inputs.dev_accountid }}
+          deploy_account_id: "055117415094"
           cdk_stack: ${{ inputs.cdk_appname }}-dev
           artifact_id: ${{env.ARTIFACT_ID}}
           artifact_download_path: ${{ inputs.working_dir }}

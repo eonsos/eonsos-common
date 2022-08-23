@@ -1,9 +1,9 @@
 name: CDK Deploy
 description: Deploys CDK to an AWS account
 inputs:
-  account_id:
+  deploy_account_id:
     type: string
-    description: 'AWS Account Id'
+    description: 'AWS Account from where CI/CD deployments are initiated from'
     required: true
   cdk_stack:
     description: 'Stack Name of the CDK app'
@@ -35,7 +35,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-region: us-east-1
-        role-to-assume: arn:aws:iam::${{ inputs.account_id }}:role/github-pipeline
+        role-to-assume: arn:aws:iam::${{ inputs.deploy_account_id }}:role/eonsos-controltower-githubpipeline
     - name: Deploy CDK Stack
       run: ${{ inputs.build_script }} && cdk deploy ${{ inputs.cdk_stack }} --require-approval never
       shell: bash
