@@ -32,14 +32,14 @@ jobs:
       #     echo "::set-output name=date::$(/bin/date -u "+%Y%m%d%s")"
       #   shell: bash
       - name: dev build
-        run: ENV=development npm run build
+        run: npm run dev-build
       - uses: actions/cache@v3
         name: store dev artifacts
         with:
           path: ${{ inputs.working_dir }}
           key: ${{env.ARTIFACT_ID}}_dev
       - name: prod build
-        run: npm run build
+        run: npm run prod-build
       - uses: actions/cache@v3
         name: store prod artifacts
         with:
