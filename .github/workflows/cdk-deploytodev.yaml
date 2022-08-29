@@ -12,16 +12,8 @@ on:
         required: false
         type: string
         default: echo "No build commands provided."
-      prod_build_script:
-        required: false
-        type: string
-        default: echo "No build commands provided."
     secrets:
       dev_accountid:
-        required: true
-      prod_accountid:
-        required: true
-      deployment_accountid:
         required: true
 env:
   ARTIFACT_ID: eon_artifact_${{github.run_id}}
@@ -48,7 +40,6 @@ jobs:
     steps:
       - uses: eonsos/eonsos-common/.github/actions/cdk-deploy@main
         with:
-          deploy_account_id: ${{ secrets.deployment_accountid }}
           target_account_id: ${{ secrets.dev_accountid }}
           cdk_stack: ${{ inputs.cdk_appname }}-dev
           artifact_id: ${{env.ARTIFACT_ID}}

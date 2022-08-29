@@ -1,0 +1,34 @@
+on:
+  workflow_call:
+    inputs:
+      cdk_appname:
+        required: true
+        type: string
+      working_dir:
+        required: false
+        type: string
+        default: "."
+      prod_build_script:
+        required: false
+        type: string
+        default: echo "No build commands provided."
+      artifact_id:
+        required: true
+        type: string
+        description: ID of the artifact built and deployed to dev
+    secrets:
+      prod_accountid:
+        required: true
+jobs:
+  DeployToProd:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: eonsos/eonsos-common/.github/actions/cdk-deploy@main
+        with:
+          target_account_id: ${{ secrets.prod_accountid }}
+          cdk_stack: ${{ inputs.cdk_appname }}-prod
+          artifact_id: ${{inputs.artifact_id}}
+          artifact_download_path: ${{ inputs.working_dir }}
+          build_script: ${{ inputs.prod_build_script }}

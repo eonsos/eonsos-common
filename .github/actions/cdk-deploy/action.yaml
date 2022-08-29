@@ -4,7 +4,8 @@ inputs:
   deploy_account_id:
     type: string
     description: 'AWS Account from where CI/CD deployments are initiated from'
-    required: true
+    required: false
+    default: "055117415094"
   target_account_id:
     type: string
     description: 'AWS Account into which the stack will be deployed'
