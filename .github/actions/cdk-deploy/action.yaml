@@ -47,29 +47,29 @@ runs:
       working-directory: ${{ inputs.artifact_download_path }}
       env:
         ACCOUNT_ID: ${{ inputs.target_account_id }}
-    - id: date
-      run: echo "##[set-output name=data;]$(data)"
-      shell: bash      
-    - name: Deployment Badge - Date
-      uses: RubbaBoy/BYOB@v1.3.0
-      with:
-        NAME: ${{ inputs.cdk_stack }}
-        LABEL: 'Last deployed at'
-        STATUS: ${{ steps.date.outputs.data }}
-        COLOR: 00EEFF
-    - name: Deployment Badge - Date
-      uses: RubbaBoy/BYOB@v1.3.0
-      with:
-        NAME: ${{ inputs.cdk_stack }}-time
-        LABEL: '${{ inputs.cdk_stack }}: Last deployed:'
-        STATUS: ${{ steps.date.outputs.data }}
-        COLOR: 3358FF
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Deployment Badge - SHA
-      uses: RubbaBoy/BYOB@v1.3.0
-      with:
-        NAME: ${{ inputs.cdk_stack }}-sha
-        LABEL: '${{ inputs.cdk_stack }}: SHA:'
-        STATUS: ${{ github.sha }}
-        COLOR: 1EAC0F
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - id: date
+    #   run: echo "##[set-output name=data;]$(data)"
+    #   shell: bash      
+    # - name: Deployment Badge - Date
+    #   uses: RubbaBoy/BYOB@v1.3.0
+    #   with:
+    #     NAME: ${{ inputs.cdk_stack }}
+    #     LABEL: 'Last deployed at'
+    #     STATUS: ${{ steps.date.outputs.data }}
+    #     COLOR: 00EEFF
+    # - name: Deployment Badge - Date
+    #   uses: RubbaBoy/BYOB@v1.3.0
+    #   with:
+    #     NAME: ${{ inputs.cdk_stack }}-time
+    #     LABEL: '${{ inputs.cdk_stack }}: Last deployed:'
+    #     STATUS: ${{ steps.date.outputs.data }}
+    #     COLOR: 3358FF
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Deployment Badge - SHA
+    #   uses: RubbaBoy/BYOB@v1.3.0
+    #   with:
+    #     NAME: ${{ inputs.cdk_stack }}-sha
+    #     LABEL: '${{ inputs.cdk_stack }}: SHA:'
+    #     STATUS: ${{ github.sha }}
+    #     COLOR: 1EAC0F
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
