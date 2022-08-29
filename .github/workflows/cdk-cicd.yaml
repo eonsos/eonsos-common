@@ -16,7 +16,7 @@ on:
       dev_accountid:
         required: true
 env:
-  ARTIFACT_ID: eon_artifact_${{github.run_id}}
+  ARTIFACT_ID: eon_artifact_${{github.sha}}
 jobs:
   Build:
     runs-on: ubuntu-latest
