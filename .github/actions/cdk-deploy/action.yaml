@@ -64,10 +64,12 @@ runs:
         LABEL: '${{ inputs.cdk_stack }}: Last deployed:'
         STATUS: ${{ steps.date.outputs.data }}
         COLOR: 3358FF
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Deployment Badge - SHA
       uses: RubbaBoy/BYOB@v1.3.0
       with:
         NAME: ${{ inputs.cdk_stack }}-sha
         LABEL: '${{ inputs.cdk_stack }}: SHA:'
         STATUS: ${{ github.sha }}
-        COLOR: 1EAC0F        
+        COLOR: 1EAC0F
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
