@@ -49,6 +49,7 @@ runs:
         ACCOUNT_ID: ${{ inputs.target_account_id }}
     - id: date
       run: echo "##[set-output name=data;]$(data)"
+      shell: bash      
     - name: Deployment Badge - Date
       uses: RubbaBoy/BYOB@v1.3.0
       with:
