@@ -54,3 +54,6 @@ jobs:
           artifact_id: ${{env.ARTIFACT_ID}}
           artifact_download_path: ${{ inputs.working_dir }}
           build_script: ${{ inputs.dev_build_script }}
+      - name: Output Values to Summary File
+        run: |
+          echo "### Artifact ID: ${{env.ARTIFACT_ID}}" >> $GITHUB_STEP_SUMMARY
