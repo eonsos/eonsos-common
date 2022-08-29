@@ -12,13 +12,11 @@ on:
         required: false
         type: string
         default: echo "No build commands provided."
-      artifact_id:
-        required: true
-        type: string
-        description: ID of the artifact built and deployed to dev
     secrets:
       prod_accountid:
         required: true
+env:
+  ARTIFACT_ID: eon_artifact_${{github.sha}}        
 jobs:
   DeployToProd:
     runs-on: ubuntu-latest
@@ -27,7 +25,7 @@ jobs:
     steps:
       - name: Write provided inputs to the summary file
         run: |
-          echo "### Artifact ID: ${{inputs.artifact_id}}" >> $GITHUB_STEP_SUMMARY
+          echo "### Artifact ID: ${{env.ARTIFACT_ID}}" >> $GITHUB_STEP_SUMMARY
           echo "### CDK App: ${{inputs.cdk_appname}}" >> $GITHUB_STEP_SUMMARY
           echo "### Working Dir: ${{inputs.working_dir}}" >> $GITHUB_STEP_SUMMARY
           echo "### Prod Build Script: ${{inputs.prod_build_script}}" >> $GITHUB_STEP_SUMMARY
@@ -35,6 +33,6 @@ jobs:
         with:
           target_account_id: ${{ secrets.prod_accountid }}
           cdk_stack: ${{ inputs.cdk_appname }}-prod
-          artifact_id: ${{inputs.artifact_id}}
+          artifact_id: ${{env.ARTIFACT_ID}}
           artifact_download_path: ${{ inputs.working_dir }}
           build_script: ${{ inputs.prod_build_script }}
