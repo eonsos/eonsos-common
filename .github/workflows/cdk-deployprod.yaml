@@ -28,9 +28,9 @@ jobs:
       - name: Write provided inputs to the summary file
         run: |
           echo "### Artifact ID: ${{inputs.artifact_id}}" >> $GITHUB_STEP_SUMMARY
-          echo "### CDK App: ${{env.cdk_appname}}" >> $GITHUB_STEP_SUMMARY
-          echo "### Working Dir: ${{env.working_dir}}" >> $GITHUB_STEP_SUMMARY
-          echo "### Prod Build Script: ${{env.prod_build_script}}" >> $GITHUB_STEP_SUMMARY
+          echo "### CDK App: ${{inputs.cdk_appname}}" >> $GITHUB_STEP_SUMMARY
+          echo "### Working Dir: ${{inputs.working_dir}}" >> $GITHUB_STEP_SUMMARY
+          echo "### Prod Build Script: ${{inputs.prod_build_script}}" >> $GITHUB_STEP_SUMMARY
       - uses: eonsos/eonsos-common/.github/actions/cdk-deploy@main
         with:
           target_account_id: ${{ secrets.prod_accountid }}
